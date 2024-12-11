@@ -66,7 +66,7 @@ public class WeixinLoginService {
             logger.error("获取ticket失败： {}", responseJson);
         }
 
-        userMap.put(sceneId,null);
+        userMap.put(sceneId,"");
         return responseJson.getStr("ticket");
     }
 
@@ -118,6 +118,6 @@ public class WeixinLoginService {
     }
 
     public boolean getLoginStatus(String sceneId) {
-        return getOpenId(sceneId) != null;
+        return !getOpenId(sceneId).isEmpty() || !userMap.containsKey(sceneId);
     }
 }
