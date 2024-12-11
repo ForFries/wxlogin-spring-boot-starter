@@ -4,15 +4,18 @@ import cn.hutool.Hutool;
 import cn.hutool.core.util.XmlUtil;
 import com.forfries.wxlogin.properties.WeixinProperties;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.MessageFormat;
 import java.util.Map;
 
-@Slf4j
+
 @RestController
 public class WeixinServerController {
 
+    private static final Logger logger = LoggerFactory.getLogger(WeixinLoginController.class);
     private WeixinLoginService weixinLoginService;
     private WeixinProperties properties;
 
@@ -40,12 +43,12 @@ public class WeixinServerController {
                        @RequestParam(name = "msg_signature", required = false) String msgSignature) {
 
 
-        log.info("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
+        logger.debug("\n接收微信请求：[openid=[{}], [signature=[{}], encType=[{}], msgSignature=[{}],"
                         + " timestamp=[{}], nonce=[{}], requestBody=[\n{}\n] ",
                 openid, signature, encType, msgSignature, timestamp, nonce, requestBody);
 
         Map<String, Object> weixinMessage = XmlUtil.xmlToMap(requestBody);
-        log.info(weixinMessage.toString());
+
 
         String reply = "";
 
@@ -71,6 +74,7 @@ public class WeixinServerController {
                     weixinMessage.get("ToUserName").toString(),
                     weixinMessage.get("CreateTime").toString(),
                     reply);
+            logger.debug("回复用户信息如下: {}",wxReply);
         }
 
         return wxReply;

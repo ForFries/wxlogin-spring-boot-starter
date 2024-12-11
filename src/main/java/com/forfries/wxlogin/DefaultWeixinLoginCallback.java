@@ -14,13 +14,13 @@ public class DefaultWeixinLoginCallback implements WeixinLoginCallback {
 
     @Override
     public String onLoginSuccess(String sceneId, String openid) {
-        logger.info("默认的回调: 登陆成功！ SceneID: {}, OpenID: {}", sceneId, openid);
+        logger.debug("默认的回调: 登陆成功！ SceneID: {}, OpenID: {}", sceneId, openid);
         return properties.getLoginMessage();
     }
 
     @Override
     public String onSubscribeSuccess(String sceneId, String openid) {
-        logger.info("默认的回调: 关注并登陆成功！ SceneID: {}, OpenID: {}", sceneId, openid);
+        logger.debug("默认的回调: 关注并登陆成功！ SceneID: {}, OpenID: {}", sceneId, openid);
         return properties.getSubscribeMessage();
     }
 }

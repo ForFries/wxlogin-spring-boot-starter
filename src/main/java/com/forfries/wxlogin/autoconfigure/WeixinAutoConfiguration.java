@@ -17,8 +17,8 @@ public class WeixinAutoConfiguration {
     
     @Bean
     @ConditionalOnMissingBean
-    public WeixinLoginService weixinService(WeixinProperties properties,WeixinLoginCallback weixinLoginCallback) {
-        return new WeixinLoginService(properties,weixinLoginCallback);
+    public WeixinLoginService weixinService(WeixinProperties properties,WeixinLoginCallback weixinLoginCallback,WeixinAccessTokenManager weixinAccessTokenManager) {
+        return new WeixinLoginService(properties,weixinLoginCallback,weixinAccessTokenManager);
     }
 
     @Bean
@@ -37,5 +37,11 @@ public class WeixinAutoConfiguration {
     @ConditionalOnMissingBean
     public WeixinLoginCallback weixinLoginCallback(WeixinProperties properties) {
         return new DefaultWeixinLoginCallback(properties); // 默认回调实现
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public WeixinAccessTokenManager weixinAccessTokenManager(WeixinProperties properties) {
+        return new WeixinAccessTokenManager(properties);
     }
 }
