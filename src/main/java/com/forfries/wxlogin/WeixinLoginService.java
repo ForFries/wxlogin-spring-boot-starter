@@ -25,6 +25,7 @@ public class WeixinLoginService {
     private static final Logger logger = LoggerFactory.getLogger(WeixinLoginService.class);
 
     public WeixinLoginService(WeixinProperties properties, WeixinLoginCallback weixinLoginCallback, WeixinAccessTokenManager weixinAccessTokenManager) {
+
         this.properties = properties;
         this.weixinLoginCallback = weixinLoginCallback;
         this.weixinAccessTokenManager = weixinAccessTokenManager;
@@ -43,9 +44,9 @@ public class WeixinLoginService {
         // 构造请求 JSON 数据
         JSONObject requestBody = new JSONObject();
         requestBody.put("expire_seconds", expireSeconds);
-        requestBody.put("action_name", "QR_SCENE");
+        requestBody.put("action_name", "QR_STR_SCENE");
         JSONObject sceneInfo = new JSONObject();
-        sceneInfo.put("scene_id", sceneId);
+        sceneInfo.put("scene_str", sceneId);
         JSONObject actionInfo = new JSONObject();
         actionInfo.put("scene", sceneInfo);
         requestBody.put("action_info", actionInfo);

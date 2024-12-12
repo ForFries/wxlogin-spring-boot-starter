@@ -2,7 +2,7 @@ package com.forfries.wxlogin.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "weixin.login")
+@ConfigurationProperties(prefix = "wxlogin")
 public class WeixinProperties {
     private String appId;
     private String appSecret;
@@ -10,6 +10,36 @@ public class WeixinProperties {
     private String verifyPath;
     private String loginMessage;
     private String subscribeMessage;
+    private WebSocketProperties websocket = new WebSocketProperties();
+
+    public WebSocketProperties getWebsocket() {
+        return websocket;
+    }
+
+    public void setWebsocket(WebSocketProperties websocket) {
+        this.websocket = websocket;
+    }
+
+    public static class WebSocketProperties {
+        private String path;
+        private boolean enabled;
+
+        public String getPath() {
+            return path;
+        }
+
+        public void setPath(String path) {
+            this.path = path;
+        }
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+    }
 
     public String getLoginMessage() {
         return loginMessage;

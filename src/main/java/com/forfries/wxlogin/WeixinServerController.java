@@ -25,7 +25,7 @@ public class WeixinServerController {
     }
 
 
-    @GetMapping(produces = "text/plain;charset=utf-8", path = "${weixin.login.verify-path:/wxverify}")
+    @GetMapping(produces = "text/plain;charset=utf-8", path = "${wxlogin.verify-path:/wxverify}")
     public String get(@RequestParam(name = "signature", required = false) String signature,
                       @RequestParam(name = "timestamp", required = false) String timestamp,
                       @RequestParam(name = "nonce", required = false) String nonce,
@@ -33,7 +33,7 @@ public class WeixinServerController {
         return echostr;
     }
 
-    @PostMapping(produces = "application/xml; charset=UTF-8", path = "${weixin.login.verify-path:/wxverify}")
+    @PostMapping(produces = "application/xml; charset=UTF-8", path = "${wxlogin.verify-path:/wxverify}")
     public String post(@RequestBody String requestBody,
                        @RequestParam("signature") String signature,
                        @RequestParam("timestamp") String timestamp,
@@ -52,13 +52,12 @@ public class WeixinServerController {
 
         String reply = "";
 
-        if("subscribe".equals(weixinMessage.get("SCAN"))) {
-           reply =  weixinLoginService.markLoginSuccess(openid,weixinMessage.get("EventKey").toString());
+        if("SCAN".equals(weixinMessage.get("Event"))) {
+           reply =  weixinLoginService.markLoginSuccess(weixinMessage.get("EventKey").toString(),openid);
         }
 
-        if("subscribe".equals(weixinMessage.get("subscribe"))) {
-           reply = weixinLoginService.markSubscribeSuccess(openid,weixinMessage.get("EventKey").toString()
-                   .substring("qrscene_".length()));
+        if("subscribe".equals(weixinMessage.get("Event"))) {
+           reply = weixinLoginService.markSubscribeSuccess(weixinMessage.get("EventKey").toString().substring("qrscene_".length()),openid);
         }
         //这里简单的做了一个返回
         String wxReply = "success";
