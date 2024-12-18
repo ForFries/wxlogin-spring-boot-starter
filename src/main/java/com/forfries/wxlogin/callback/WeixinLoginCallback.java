@@ -1,6 +1,4 @@
-package com.forfries.wxlogin;
-
-import com.forfries.wxlogin.properties.WeixinProperties;
+package com.forfries.wxlogin.callback;
 
 public interface WeixinLoginCallback {
     //返回登陆成功的消息

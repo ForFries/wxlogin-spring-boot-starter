@@ -1,6 +1,7 @@
-package com.forfries.wxlogin;
+package com.forfries.wxlogin.callback;
 
 import com.forfries.wxlogin.properties.WeixinProperties;
+import com.forfries.wxlogin.websocket.WeixinWebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -35,9 +36,9 @@ public class DefaultWeixinLoginCallback implements WeixinLoginCallback {
         if (properties.getWebsocket().isEnabled()) {
             try {
                 // 检查 WebSocketHandler 是否存在
-                Object handler = applicationContext.getBean("defaultWebSocketHandler");
-                if (handler instanceof DefaultWebSocketHandler) {
-                    ((DefaultWebSocketHandler) handler).sendLoginMessage(sceneId, openid);
+                Object handler = applicationContext.getBean("weixinWebSocketHandler");
+                if (handler instanceof WeixinWebSocketHandler) {
+                    ((WeixinWebSocketHandler) handler).sendLoginMessage(sceneId, openid);
                     logger.debug("WebSocket 消息已发送: SceneID: {}, OpenID: {}", sceneId, openid);
                 }
             } catch (Exception e) {

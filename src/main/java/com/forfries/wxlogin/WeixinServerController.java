@@ -2,6 +2,7 @@ package com.forfries.wxlogin;
 
 import cn.hutool.Hutool;
 import cn.hutool.core.util.XmlUtil;
+import com.forfries.wxlogin.callback.WeixinLoginCallback;
 import com.forfries.wxlogin.properties.WeixinProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -17,11 +18,13 @@ public class WeixinServerController {
 
     private static final Logger logger = LoggerFactory.getLogger(WeixinLoginController.class);
     private WeixinLoginService weixinLoginService;
+    private WeixinLoginCallback weixinLoginCallback;
     private WeixinProperties properties;
 
-    public WeixinServerController(WeixinLoginService weixinLoginService, WeixinProperties properties) {
+    public WeixinServerController(WeixinLoginService weixinLoginService, WeixinLoginCallback weixinLoginCallback, WeixinProperties properties) {
         this.weixinLoginService = weixinLoginService;
         this.properties = properties;
+        this.weixinLoginCallback = weixinLoginCallback;
     }
 
 
@@ -52,16 +55,20 @@ public class WeixinServerController {
 
         String reply = "";
 
-        if("SCAN".equals(weixinMessage.get("Event"))) {
-           reply =  weixinLoginService.markLoginSuccess(weixinMessage.get("EventKey").toString(),openid);
+        if ("SCAN".equals(weixinMessage.get("Event"))) {
+            String sceneId = weixinMessage.get("EventKey").toString();
+            reply = weixinLoginCallback.onLoginSuccess(sceneId, openid);
+            weixinLoginService.markLoginSuccess(sceneId, openid);
         }
 
-        if("subscribe".equals(weixinMessage.get("Event"))) {
-           reply = weixinLoginService.markSubscribeSuccess(weixinMessage.get("EventKey").toString().substring("qrscene_".length()),openid);
+        if ("subscribe".equals(weixinMessage.get("Event"))) {
+            String sceneId = weixinMessage.get("EventKey").toString().substring("qrscene_".length());
+            reply = weixinLoginCallback.onSubscribeSuccess(sceneId, openid);
+            weixinLoginService.markSubscribeSuccess(sceneId, openid);
         }
         //这里简单的做了一个返回
         String wxReply = "success";
-        if(reply!=null && !reply.isEmpty()){
+        if (reply != null && !reply.isEmpty()) {
             wxReply = MessageFormat.format("<xml>\n" +
                             "  <ToUserName><![CDATA[{0}]]></ToUserName>\n" +
                             "  <FromUserName><![CDATA[{1}]]></FromUserName>\n" +
@@ -73,7 +80,7 @@ public class WeixinServerController {
                     weixinMessage.get("ToUserName").toString(),
                     weixinMessage.get("CreateTime").toString(),
                     reply);
-            logger.debug("回复用户信息如下: {}",wxReply);
+            logger.debug("回复用户信息如下: {}", wxReply);
         }
 
         return wxReply;

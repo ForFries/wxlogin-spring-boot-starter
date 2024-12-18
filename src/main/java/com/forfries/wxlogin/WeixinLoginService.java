@@ -1,10 +1,10 @@
 package com.forfries.wxlogin;
 
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
+import com.forfries.wxlogin.callback.WeixinLoginCallback;
 import com.forfries.wxlogin.properties.WeixinProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,22 +12,19 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
 
 @Service
 public class WeixinLoginService {
     private final WeixinProperties properties;
-    private final WeixinLoginCallback weixinLoginCallback; // 回调接口
     private final WeixinAccessTokenManager weixinAccessTokenManager;
     private final ConcurrentHashMap<String, String> userMap = new ConcurrentHashMap<>();
     private static final String CREATE_QR_CODE_URL = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=";
     private static final String SHOW_QR_CODE_URL = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=";
     private static final Logger logger = LoggerFactory.getLogger(WeixinLoginService.class);
 
-    public WeixinLoginService(WeixinProperties properties, WeixinLoginCallback weixinLoginCallback, WeixinAccessTokenManager weixinAccessTokenManager) {
+    public WeixinLoginService(WeixinProperties properties, WeixinAccessTokenManager weixinAccessTokenManager) {
 
         this.properties = properties;
-        this.weixinLoginCallback = weixinLoginCallback;
         this.weixinAccessTokenManager = weixinAccessTokenManager;
     }
 
@@ -104,14 +101,12 @@ public class WeixinLoginService {
     }
 
 
-    public String markLoginSuccess(String sceneId, String openId) {
+    public void markLoginSuccess(String sceneId, String openId) {
         userMap.put(sceneId, openId);
-        return weixinLoginCallback.onLoginSuccess(sceneId, openId);
     }
 
-    public String markSubscribeSuccess(String sceneId, String openId) {
-        userMap.put(sceneId, openId);
-        return weixinLoginCallback.onSubscribeSuccess(sceneId, openId);
+    public void markSubscribeSuccess(String sceneId, String openId) {
+        markLoginSuccess(sceneId, openId);
     }
 
     public String getOpenId(String sceneId) {

@@ -10,8 +10,10 @@
     </parent>
 
     <groupId>com.forfries</groupId>
-    <artifactId>wx-login-spring-boot-starter</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>wxlogin-spring-boot-starter</artifactId>
+    <version>1.1.0</version>
+    <name>Weixin Login Starter</name>
+    <description>A Spring Boot starter for simple developing a springboot application with QRCode login</description>
 
     <properties>
         <java.version>17</java.version>
@@ -53,11 +55,9 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.3</version>
             </plugin>
         </plugins>
     </build>
