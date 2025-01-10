@@ -1,8 +1,8 @@
-package com.forfries.wxlogin.autoconfigure;
+package com.tofries.wxlogin.autoconfigure;
 
-import com.forfries.wxlogin.websocket.WeixinWebSocketHandler;
-import com.forfries.wxlogin.WeixinLoginService;
-import com.forfries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.websocket.WeixinWebSocketHandler;
+import com.tofries.wxlogin.WeixinLoginService;
+import com.tofries.wxlogin.properties.WeixinProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;

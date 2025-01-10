@@ -1,4 +1,4 @@
-package com.forfries.wxlogin.callback;
+package com.tofries.wxlogin.callback;
 
 public interface WeixinLoginCallback {
     //返回登陆成功的消息

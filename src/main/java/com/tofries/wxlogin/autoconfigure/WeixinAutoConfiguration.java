@@ -1,10 +1,14 @@
-package com.forfries.wxlogin.autoconfigure;
+package com.tofries.wxlogin.autoconfigure;
 
-import com.forfries.wxlogin.*;
-import com.forfries.wxlogin.callback.DefaultWeixinLoginCallback;
-import com.forfries.wxlogin.callback.WeixinLoginCallback;
-import com.forfries.wxlogin.properties.WeixinProperties;
-import com.forfries.wxlogin.websocket.WeixinWebSocketHandler;
+import com.tofries.wxlogin.*;
+import com.tofries.wxlogin.WeixinAccessTokenManager;
+import com.tofries.wxlogin.WeixinLoginController;
+import com.tofries.wxlogin.WeixinLoginService;
+import com.tofries.wxlogin.WeixinServerController;
+import com.tofries.wxlogin.callback.DefaultWeixinLoginCallback;
+import com.tofries.wxlogin.callback.WeixinLoginCallback;
+import com.tofries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.websocket.WeixinWebSocketHandler;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -17,7 +21,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnWebApplication
 @EnableConfigurationProperties(WeixinProperties.class)
-@ComponentScan(basePackages = "com.forfries.wxlogin")
+@ComponentScan(basePackages = "com.tofries.wxlogin")
 public class WeixinAutoConfiguration {
     
     @Bean

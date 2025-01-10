@@ -1,11 +1,10 @@
-package com.forfries.wxlogin;
+package com.tofries.wxlogin;
 
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.json.JSONObject;
-import com.forfries.wxlogin.callback.WeixinLoginCallback;
-import com.forfries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.properties.WeixinProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

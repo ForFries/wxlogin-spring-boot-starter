@@ -1,6 +1,6 @@
-package com.forfries.wxlogin.websocket;
+package com.tofries.wxlogin.websocket;
 
-import com.forfries.wxlogin.WeixinLoginService;
+import com.tofries.wxlogin.WeixinLoginService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.socket.CloseStatus;
@@ -48,6 +48,9 @@ public class WeixinWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void sendLoginMessage(String sceneId,String openId) throws IOException {
+        if (!sceneMap.containsKey(sceneId)) {
+            return;
+        }
         String message = "登陆成功！openID:"+openId+",sceneId:"+sceneId;
         sendMessage(sceneId,message);
         closeConnection(sceneId);
@@ -57,6 +60,7 @@ public class WeixinWebSocketHandler extends TextWebSocketHandler {
     }
 
     public void closeConnection(String sceneId) throws IOException {
+        sceneMap.remove(sceneId);
         sceneMap.get(sceneId).close();
     }
 }

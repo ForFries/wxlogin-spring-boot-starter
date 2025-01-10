@@ -1,10 +1,8 @@
-package com.forfries.wxlogin;
+package com.tofries.wxlogin;
 
-import cn.hutool.Hutool;
 import cn.hutool.core.util.XmlUtil;
-import com.forfries.wxlogin.callback.WeixinLoginCallback;
-import com.forfries.wxlogin.properties.WeixinProperties;
-import lombok.extern.slf4j.Slf4j;
+import com.tofries.wxlogin.callback.WeixinLoginCallback;
+import com.tofries.wxlogin.properties.WeixinProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

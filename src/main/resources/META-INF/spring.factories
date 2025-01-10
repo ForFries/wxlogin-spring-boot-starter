@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.forfries.wxlogin.autoconfigure.WeixinAutoConfiguration
+com.tofries.wxlogin.autoconfigure.WeixinAutoConfiguration

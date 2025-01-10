@@ -1,7 +1,7 @@
-package com.forfries.wxlogin.callback;
+package com.tofries.wxlogin.callback;
 
-import com.forfries.wxlogin.properties.WeixinProperties;
-import com.forfries.wxlogin.websocket.WeixinWebSocketHandler;
+import com.tofries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.websocket.WeixinWebSocketHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;

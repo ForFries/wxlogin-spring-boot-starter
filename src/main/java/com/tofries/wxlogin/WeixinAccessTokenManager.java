@@ -1,8 +1,8 @@
-package com.forfries.wxlogin;
+package com.tofries.wxlogin;
 
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
-import com.forfries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.properties.WeixinProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +47,5 @@ public class WeixinAccessTokenManager {
         } else {
             logger.error("无法获取AccessToken，请检查:{}", json);
         }
-
     }
 }

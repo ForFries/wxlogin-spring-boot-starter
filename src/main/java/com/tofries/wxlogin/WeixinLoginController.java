@@ -1,6 +1,6 @@
-package com.forfries.wxlogin;
+package com.tofries.wxlogin;
 
-import com.forfries.wxlogin.properties.WeixinProperties;
+import com.tofries.wxlogin.properties.WeixinProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;

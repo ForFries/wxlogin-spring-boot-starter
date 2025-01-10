@@ -1,4 +1,4 @@
-package com.forfries.wxlogin.properties;
+package com.tofries.wxlogin.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
