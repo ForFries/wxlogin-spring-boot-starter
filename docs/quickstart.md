@@ -41,7 +41,7 @@ Hey！这是一个超简单的微信扫码登录 Spring Boot Starter，只需要
 
 ### 2️⃣ 获取并配置微信测试号
 
-> 💡 这一步需要在微信公众平台操作，[点击查看详细配置步骤](#🛰️ 配置微信测试号详细说明)
+> 💡 这一步需要在微信公众平台操作，[点击查看详细配置步骤](#配置微信测试号详细说明)
 
 1. 访问[微信公众平台测试号系统](https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login)
 
@@ -49,7 +49,7 @@ Hey！这是一个超简单的微信扫码登录 Spring Boot Starter，只需要
 
 3. 配置接口地址：`http://你的域名/wxverify`
 
-   > 🔔 本地开发？需要配置内网穿透！[点击查看内网穿透配置](#🔧 内网穿透配置)
+   > 🔔 本地开发？需要配置内网穿透！[点击查看内网穿透配置](#内网穿透配置)
 
 4. 在 `application.yml` 中添加配置：
 
@@ -70,7 +70,7 @@ wxlogin:
 - 获取场景值：`GET /wxlogin/scene-id`
 - 查询登录状态：`GET /wxlogin/status?sceneId={sceneId}`
 
-[查看接口详细说明](#📚 接口详细说明)
+[查看接口详细说明](#接口详细说明)
 
 
 
@@ -123,7 +123,7 @@ wxlogin:
     path: /wxlogin/ws
 ```
 
-[查看WebSocket详细说明](#4. WebSocket接口（推荐）)
+[查看WebSocket详细说明](#WebSocket接口（推荐）)
 
 ### 🎨 自定义登录回调
 
