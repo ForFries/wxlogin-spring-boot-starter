@@ -377,9 +377,9 @@ ws.onerror = (error) => {
 
 ## 🤝 需要帮助？
 
-- 📖 查看完整文档：[GitHub Wiki](https://github.com/your-repo/wiki)
-- 🐛 遇到问题？[提交 Issue](https://github.com/your-repo/issues)
-- 💡 有建议？[Pull Request](https://github.com/your-repo/pulls) 随时欢迎！
+- 📖 查看项目：[GitHub](https://github.com/tofries/wxlogin-spring-boot-starter)
+- 🐛 遇到问题？[提交 Issue](https://github.com/tofries/wxlogin-spring-boot-starter/issues)
+- 💡 有建议？[Pull Request](https://github.com/tofries/wxlogin-spring-boot-starter/pulls) 随时欢迎！
 
 ## 📄 开源协议
 

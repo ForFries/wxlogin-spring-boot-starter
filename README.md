@@ -107,8 +107,8 @@ public class MyLoginCallback implements WeixinLoginCallback {
 ## 💬 联系方式
 
 - Issue: [GitHub Issues](https://github.com/tofries/wxlogin-spring-boot-starter/issues)
-- Email: your-email@example.com
-- Blog: [your-blog.com](https://your-blog.com)
+- Email: nolan@tofries.com
+- Blog: [blog.tofries.com](https://blog.tofries.com)
 
 ---
 
