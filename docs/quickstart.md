@@ -155,6 +155,8 @@ wxlogin:
 
 ## 🛰️ 配置微信测试号详细说明
 
+<a id="配置微信测试号详细说明"></a>
+
 ### 🎯 第一步：获取测试号
 
 1. 📱 用微信扫码登录[微信公众平台测试号系统](https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login)
@@ -233,6 +235,8 @@ wxlogin:
 
 ## 🔧 内网穿透配置
 
+<a id="内网穿透配置"></a>
+
 本地开发时，微信服务器需要访问到你的本地服务。以下是几种快速配置方案：
 
 1. 使用 ngrok（推荐）：
@@ -265,6 +269,8 @@ http://你的外网域名/wxverify
 
 
 ## 📚 接口详细说明
+
+<a id="接口详细说明"></a>
 
 ### 1. 获取登录二维码
 
@@ -363,6 +369,8 @@ const timer = setInterval(() => checkLoginStatus(sceneId), 3000);
 ```
 
 ### 4. WebSocket接口（推荐）
+
+<a id="WebSocket接口（推荐）"></a>
 
 ```http
 WebSocket /wxlogin/ws
