@@ -1,79 +1,78 @@
 # 微信二维码登录 Spring Boot Starter 🚀
-一键式集成微信扫码登录功能，专为个人开发者打造！无需企业资质，基于微信公众平台测试号，快速为你的应用添加微信扫码登录能力。
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/com.tofries/wxlogin-spring-boot-starter.svg)](https://search.maven.org/artifact/com.tofries/wxlogin-spring-boot-starter)
+[![GitHub stars](https://img.shields.io/github/stars/tofries/wxlogin-spring-boot-starter.svg)](https://github.com/tofries/wxlogin-spring-boot-starter/stargazers)
+
+基于微信测试号的扫码登录 Spring Boot Starter，专为个人开发者打造！无需企业资质，一行依赖即可为你的应用添加微信扫码登录能力。
 
 ## ✨ 特性
 
 - 🔌 一键集成，零配置启动
 - 🎯 基于微信测试号，个人开发者也能用
-- 🛠 自动配置所有必要的接口
+- 🛠️ 自动配置，零代码接入
+- 📱 支持 WebSocket 实时推送登录状态
 - 🎨 支持自定义登录成功回调
-- 📱 支持WebSocket实时推送登录状态
 - 🔒 安全可靠的登录流程
 
-## 🚀 快速开始
+## 📦 快速开始
 
-### 1️⃣ 添加依赖
+### Maven 依赖
 
-在你的`pom.xml`中添加：
 ```xml
 <dependency>
     <groupId>com.tofries</groupId>
-    <artifactId>wechat-login-spring-boot-starter</artifactId>
+    <artifactId>wxlogin-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
 
-### 2️⃣ 配置属性
+### 基础配置
 
-在`application.yml`中添加：
 ```yaml
 wxlogin:
   app-id: 你的测试号appId
   app-secret: 你的测试号appSecret
-  # 可选配置
-  api-prefix: /wxlogin  # 接口前缀，默认/wxlogin
-  verify-path: /wxverify # 微信服务器验证路径，默认/wxverify
-  login-message: 登录成功！  # 登录成功后的提示消息
-  subscribe-message: 感谢关注！  # 首次关注时的提示消息
+```
+
+### 开箱即用接口
+
+```http
+GET /wxlogin/qrcode?sceneId={sceneId}  # 获取登录二维码
+GET /wxlogin/scene-id                   # 获取随机场景值
+GET /wxlogin/status?sceneId={sceneId}   # 查询登录状态
+WebSocket /wxlogin/ws                   # WebSocket实时推送（可选）
+```
+
+## 📚 文档
+
+- [快速开始文档](docs/quickstart.md)
+- [详细配置文档](docs/configuration.md)
+- [接口说明文档](docs/api.md)
+- [原理说明文档](docs/principle.md)
+- [架构设计文档](docs/architecture.md)
+- [示例项目](examples/)
+
+## 🎯 使用场景
+
+- 个人博客登录
+- 小型网站会员系统
+- 开发环境测试
+- 学习/演示项目
+- 任何需要登录功能的个人项目
+
+## 🌟 进阶使用
+
+### WebSocket 支持
+
+```yaml
+wxlogin:
   websocket:
-    enabled: false  # 是否启用WebSocket，默认false
-    path: /wxlogin/ws  # WebSocket路径，默认/wxlogin/ws
+    enabled: true
+    path: /wxlogin/ws
 ```
 
-### 3️⃣ 开箱即用的接口
-
-启动应用后，自动获得以下接口：
-
-#### 🔹 获取登录二维码
-```http
-GET /wxlogin/qrcode?sceneId={sceneId}
-```
-- `sceneId`: 可选，不传则自动生成
-- 返回：二维码图片URL
-
-#### 🔹 获取随机场景值
-```http
-GET /wxlogin/scene-id
-```
-- 返回：随机生成的sceneId
-
-#### 🔹 查询登录状态
-```http
-GET /wxlogin/status?sceneId={sceneId}
-```
-- `sceneId`: 必填，场景值
-- 返回：`success`或`fail`
-
-## 🎯 如何获取测试号？
-
-1. 访问[微信公众平台测试号系统](https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo)
-2. 使用微信扫码登录
-3. 获取测试号信息（appId和appSecret）
-4. 配置接口地址：`http://你的域名/wxverify`
-
-## 🎨 自定义登录回调
-
-创建一个类实现`WeixinLoginCallback`接口：
+### 自定义登录回调
 
 ```java
 @Component
@@ -86,26 +85,31 @@ public class MyLoginCallback implements WeixinLoginCallback {
 }
 ```
 
-## 📱 WebSocket支持
+## 📱 贡献
 
-开启WebSocket支持后，可以实时获取登录状态：
+欢迎贡献代码，提交 Issue 或 Pull Request！
 
-```javascript
-const ws = new WebSocket('ws://你的域名/wxlogin/ws');
-ws.onmessage = (event) => {
-    const data = event.data;
-    if (data.startsWith('http')) {
-        // 显示二维码
-    } else {
-        // 处理登录成功消息
-    }
-};
-```
+1. Fork 本仓库
+2. 创建新分支: `git checkout -b feature/xxx`
+3. 提交改动: `git commit -am 'Add xxx feature'`
+4. 推送分支: `git push origin feature/xxx`
+5. 提交 Pull Request
 
-## 📄 License
+## 📄 开源协议
 
-本项目采用 MIT 协议开源，使用请注明出处。
+本项目采用 [MIT](LICENSE) 协议开源，使用请注明出处。
 
-## 🤝 贡献
+## 🙏 鸣谢
 
-欢迎提交 Issue 和 Pull Request 贡献代码！
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [微信开放平台](https://open.weixin.qq.com/)
+
+## 💬 联系方式
+
+- Issue: [GitHub Issues](https://github.com/tofries/wxlogin-spring-boot-starter/issues)
+- Email: your-email@example.com
+- Blog: [your-blog.com](https://your-blog.com)
+
+---
+
+如果这个项目帮助到你，请给个 Star 支持一下！⭐️
