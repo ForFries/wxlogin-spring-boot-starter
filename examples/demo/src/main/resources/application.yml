@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: wxlogin-demo
+server:
+  port: 8080
+
+wxlogin:
+  api-prefix: /wxlogin
+  verify-path: /wxverify
+  app-id: wx28e6c7a834051xxx 改为自己的
+  app-secret: 25e8e4d6fe8570bb1070f41da9999xxx
+  subscribe-message: "感谢关注！登陆成功！"
+  login-message: "登陆成功！"
+  websocket:
+    enabled: true
+    path: /ws
+
+
+logging:
+  level:
+    com.forfries.wxlogin : DEBUG #启用调试模式
+

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微信扫码登录示例</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .login-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .qrcode-wrapper {
+            margin: 2rem auto;
+            padding: 1rem;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        #qrcode {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+
+        .status {
+            margin-top: 1rem;
+            color: #666;
+        }
+
+        .success {
+            color: #52c41a;
+        }
+
+        .title {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .refresh-btn {
+            background: #1890ff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .refresh-btn:hover {
+            background: #40a9ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 class="title">微信扫码登录</h2>
+        <p class="subtitle">使用微信扫一扫登录</p>
+        <div class="qrcode-wrapper">
+            <img id="qrcode" alt="微信登录二维码" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=">
+        </div>
+        <div id="status" class="status">等待扫码...</div>
+        <button class="refresh-btn" onclick="refreshQrCode()">刷新二维码</button>
+    </div>
+
+    <script>
+        let ws;
+        let sceneId;
+        let checkStatusInterval;
+
+        // 初始化WebSocket连接
+        function initWebSocket() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/wxlogin/ws`;
+            
+            ws = new WebSocket(wsUrl);
+
+            ws.onmessage = (event) => {
+                const data = event.data;
+                if (data.startsWith('http')) {
+                    // 收到二维码URL
+                    document.getElementById('qrcode').src = data;
+                    document.getElementById('status').textContent = '请使用微信扫描二维码';
+                } else {
+                    // 收到登录成功消息
+                    handleLoginSuccess(data);
+                }
+            };
+
+            ws.onclose = () => {
+                console.log('WebSocket连接已关闭');
+                // 如果WebSocket不可用，切换到轮询模式
+                startPolling();
+            };
+
+            ws.onerror = (error) => {
+                console.error('WebSocket错误：', error);
+                // 如果WebSocket出错，切换到轮询模式
+                startPolling();
+            };
+        }
+
+        // 初始化轮询模式
+        async function initPolling() {
+            try {
+                // 获取场景值
+                const response = await fetch('/wxlogin/scene-id');
+                sceneId = await response.text();
+                
+                // 获取二维码
+                const qrcodeResponse = await fetch(`/wxlogin/qrcode?sceneId=${sceneId}`);
+                const qrcodeUrl = await qrcodeResponse.text();
+                document.getElementById('qrcode').src = qrcodeUrl;
+                document.getElementById('status').textContent = '请使用微信扫描二维码';
+
+                // 开始轮询
+                startPolling();
+            } catch (error) {
+                console.error('初始化失败：', error);
+                document.getElementById('status').textContent = '加载失败，请刷新页面重试';
+            }
+        }
+
+        // 开始轮询检查登录状态
+        function startPolling() {
+            if (checkStatusInterval) {
+                clearInterval(checkStatusInterval);
+            }
+            
+            checkStatusInterval = setInterval(async () => {
+                try {
+                    const response = await fetch(`/wxlogin/status?sceneId=${sceneId}`);
+                    const status = await response.text();
+                    if (status === 'success') {
+                        handleLoginSuccess('登录成功！');
+                    }
+                } catch (error) {
+                    console.error('检查状态失败：', error);
+                }
+            }, 2000);
+        }
+
+        // 处理登录成功
+        function handleLoginSuccess(message) {
+            document.getElementById('status').textContent = message;
+            document.getElementById('status').classList.add('success');
+            if (checkStatusInterval) {
+                clearInterval(checkStatusInterval);
+            }
+            if (ws) {
+                ws.close();
+            }
+            // 延迟跳转到首页
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 1500);
+        }
+
+        // 刷新二维码
+        function refreshQrCode() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                // 如果WebSocket可用，关闭后重新连接
+                ws.close();
+                initWebSocket();
+            } else {
+                // 否则使用轮询模式刷新
+                initPolling();
+            }
+            document.getElementById('status').textContent = '正在刷新二维码...';
+            document.getElementById('status').classList.remove('success');
+        }
+
+        // 页面加载时尝试使用WebSocket
+        window.onload = () => {
+            try {
+                initWebSocket();
+            } catch (error) {
+                console.error('WebSocket初始化失败，切换到轮询模式：', error);
+                initPolling();
+            }
+        };
+    </script>
+</body>
+</html> 
