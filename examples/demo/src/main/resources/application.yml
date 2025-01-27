@@ -18,5 +18,5 @@ wxlogin:
 
 logging:
   level:
-    com.forfries.wxlogin : DEBUG #启用调试模式
+    com.tofries.wxlogin : DEBUG #启用调试模式
 

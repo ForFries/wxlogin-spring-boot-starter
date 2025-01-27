@@ -76,11 +76,12 @@ wxlogin:
 
 ## 📺 效果展示
 
-[图片占位：展示登录流程的动图或截图序列]
+![演示](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272138389.gif)
 
-1. 打开登录页面，展示二维码
-2. 使用微信扫描二维码
-3. 自动完成登录
+1. 完成微信配置
+2. 打开登录页面，展示二维码
+3. 使用微信扫描二维码
+4. 自动完成登录
 
 
 
@@ -161,11 +162,11 @@ wxlogin:
 
 1. 📱 用微信扫码登录[微信公众平台测试号系统](https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login)
 
-![1](./images/quickstart/1.png)
+![1](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272135438.png)
 
 2. 🔑 登录成功后，你会看到测试号信息页面
 
-![image-20250111181422878](./images/quickstart/image-20250111181422878.png)
+![2](https://raw.githubusercontent.com/tofries/ImageHosting/main/image-20250111181422878.png)
 
 ### 🛠️ 第二步：配置接口信息
 
@@ -174,7 +175,7 @@ wxlogin:
    - URL：`http://你的域名/wxverify`
    - Token：可以随意填写，比如：`123456`
 
-![image-20250111181504804](./images/quickstart/image-20250111181504804.png)
+![3](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272135776.png)
 
 > 🔔 注意：
 >
@@ -190,9 +191,7 @@ wxlogin:
    - ✅ 内网穿透是否配置正确
    - ✅ URL是否能正常访问
 
-![image-20250111181551215](./images/quickstart/image-20250111181551215.png)
-
-### ⚡️ 第四步：使用配置
+![image-20250111181551215](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272136007.png)第四步：使用配置
 
 1. 在你的项目中创建或修改 `application.yml` 文件
 2. 添加以下配置：
@@ -203,7 +202,7 @@ wxlogin:
   app-secret: 这里填写测试号信息页面上的appsecret
 ```
 
-![image-20250111181658269](./images/quickstart/image-20250111181658269.png)
+![image-20250111181658269](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272136204.png)
 
 ### ✅ 验证配置是否成功
 
@@ -211,9 +210,9 @@ wxlogin:
 2. 📱 访问：`http://你的域名/wxlogin/qrcode`
 3. 🔍 访问得到的URL，看见二维码，说明配置成功！
 
-![image-20250111181858969](./images/quickstart/image-20250111181858969.png)
+![image-20250111181858969](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272136245.png)
 
-![image-20250111182018628](./images/quickstart/image-20250111182018628.png)
+![image-20250111182018628](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272137055.png)
 
 ### ❌ 常见问题解决
 
