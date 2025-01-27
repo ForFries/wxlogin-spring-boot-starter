@@ -6,22 +6,11 @@
 
 基于微信测试号的扫码登录 Spring Boot Starter，专为个人开发者打造！无需企业资质，一行依赖即可为你的应用添加微信扫码登录能力。
 
- 
+ ![演示](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272153989.gif)
 
-## 🌟 如果这个项目帮助到你，请给个 Star 支持一下！
+### 🌟 如果这个项目帮助到你，请给个 Star 支持一下！
 
 
-
-## 📺 效果展示
-
-![演示](https://raw.githubusercontent.com/tofries/ImageHosting/main/202501272148385.gif)
-
-1. 完成微信配置
-2. 打开登录页面，展示二维码
-3. 使用微信扫描二维码
-4. 自动完成登录
-
- 
 
 ## 💡 使用场景
 
